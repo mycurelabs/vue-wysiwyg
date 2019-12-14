@@ -23,7 +23,14 @@ $ yarn add @mycure/vue-wysiwyg
 **CDN**
 
 ```html
-<script src=""></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://unpkg.com/@mycure/vue-wysiwyg/dist/mc-wysiwyg.js"></script>
+<script>
+  Vue.use(McWysiwyg.default);
+  new Vue({
+    el: '#app',
+  });
+</script>
 ```
 
 ### Usage
