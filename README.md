@@ -4,7 +4,7 @@
 
 A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 
-**[Demo]()**
+**[Demo](https://mycurelabs.github.io/vue-wysiwyg/)**
 
 ### Install
 
