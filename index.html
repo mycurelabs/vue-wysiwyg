@@ -54,20 +54,13 @@
   <script src="./dist/mc-wysiwyg.js"></script>
   <script>
     Vue.use(McWysiwyg.default);
-    var vm = new Vue({
+    new Vue({
       el: '#app',
-      vuetify: new Vuetify(),
       data () {
         return {
           html: '<h1 style="text-align: center;">Hello World!</h1><div><br></div><div><a href="https://mycure.md" style="font-size: 0.875rem; letter-spacing: 0.00714286em; background-color: rgb(255, 255, 255);">MYCURE</a>&nbsp;is the most complete clinic management system in the Philippines!</div><div><br></div><div>It works <b>offline</b> too! With the help of our proprietary technology <i><b>Syncbase.</b></i></div><div><br></div><div>Look at these features:</div><div><ol><li>Electronic Medical Record</li><li>Billing</li><li>Registration and Queueing</li><li>Laboratory and Imaging Systems</li><li>Materials Management</li><li>Reports and Analytics</li></ol><div><br></div></div><div><u>Table</u></div><div><table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;"> <tbody> <tr><td style="border: 1px solid lightgrey; padding: 2px;">Foo</td><td style="border: 1px solid lightgrey; padding: 2px;">Bar</td></tr><tr><td style="border: 1px solid lightgrey; padding: 2px;">Fizz</td><td style="border: 1px solid lightgrey; padding: 2px;">Bazz</td></tr> </tbody> </table></div><div><br></div>',
           showDialog: false
         };
-      },
-      computed: {
-        
-      },
-      methods: {
-        
       }
     });
   </script>
