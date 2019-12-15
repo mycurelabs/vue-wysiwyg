@@ -120,7 +120,7 @@ export default {
 
 ### Incoming Features
 
-For feature request please create a [new issue](https://github.com/mycurelabs/vue-wysiwyg/issues/new)
+For feature request please create a [new issue](https://github.com/mycurelabs/vue-wysiwyg/issues/new).
 
 - [ ] Add image
 - [x] Configuration to show/hide features
