@@ -3,50 +3,50 @@
     <div id="container">
       <div id="toolbar">
         <div class="toolbar-section">
-          <button class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click="bold">
+          <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click="bold">
             <format-bold></format-bold>
           </button>
-          <button class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click="italize">
+          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click="italize">
             <format-italic></format-italic>
           </button>
-          <button class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click="underline">
+          <button v-if="!hide.underline" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click="underline">
             <format-underline></format-underline>
           </button>
-          <button class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click="strikeThrough">
+          <button v-if="!hide.strikethrough" class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click="strikeThrough">
             <format-strikethrough></format-strikethrough>
           </button>
-          <button class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click="showHeadings">
+          <button v-if="!hide.heading" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click="showHeadings">
             <format-header-1></format-header-1>
           </button>
         </div>
         <div class="toolbar-section">
-          <button class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''" @click="alignLeft">
+          <button v-if="!hide.alignLeft" class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''" @click="alignLeft">
             <format-align-left></format-align-left>
           </button>
-          <button class="wysiwyg-button" :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" @click="alignCenter">
+          <button v-if="!hide.alignCenter" class="wysiwyg-button" :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" @click="alignCenter">
             <format-align-center></format-align-center>
           </button>
-          <button class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''" @click="alignRight">
+          <button v-if="!hide.alignRight" class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''" @click="alignRight">
             <format-align-right></format-align-right>
           </button>
-          <button class="wysiwyg-button" @click="orderedList">
+          <button v-if="!hide.ol" class="wysiwyg-button" @click="orderedList">
             <format-list-numbered></format-list-numbered>
           </button>
-          <button class="wysiwyg-button" @click="insertUnorderedList">
+          <button v-if="!hide.ul" class="wysiwyg-button" @click="insertUnorderedList">
             <format-list-bulleted></format-list-bulleted>
           </button>
         </div>
         <div class="toolbar-section">
-          <button class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" @click="showLinkOptions">
-            <b style="font-size: 12px">URL</b>
+          <button v-if="!hide.url" class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" @click="showLinkOptions">
+            <b style="font-size: 10px;">URL</b>
           </button>
-          <button class="wysiwyg-button" :class="showTableForm ? 'wysiwyg-button-active' : ''" @click="showTableOptions">
+          <button v-if="!hide.table" class="wysiwyg-button" :class="showTableForm ? 'wysiwyg-button-active' : ''" @click="showTableOptions">
             <table-large></table-large>
           </button>
-          <button class="wysiwyg-button" @click="indent">
+          <button v-if="!hide.indent" class="wysiwyg-button" @click="indent">
             <format-indent-increase></format-indent-increase>
           </button>
-          <button class="wysiwyg-button" @click="outdent">
+          <button v-if="!hide.outdent" class="wysiwyg-button" @click="outdent">
             <format-indent-decrease></format-indent-decrease>
           </button>
         </div>
@@ -113,6 +113,10 @@ export default {
   props: {
     value: {
       type: String
+    },
+    hide: {
+      type: Object,
+      default: () => ({})
     }
   },
   data () {
