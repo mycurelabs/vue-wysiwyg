@@ -1,6 +1,6 @@
 # Vue Wysiwyg
 
-![npm bundle size](https://img.shields.io/bundlephobia/min/@mycure/vue-wysiwyg?style=flat-square)
+![npm bundle size](https://img.shields.io/bundlephobia/min/@mycure/vue-wysiwyg?style=flat-square) ![npm](https://img.shields.io/npm/dw/@mycure/vue-wysiwyg?style=flat-square)
 
 A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 
@@ -65,3 +65,67 @@ export default {
 }
 </script>
 ```
+
+### Props
+
+`hide` - Pass the object property `hide` to hide certain features in the editor. 
+
+**Sample**
+
+In example below, `strikethrough` and `table` will be hidden.
+
+```html
+<template>
+  <div>
+    <mc-wysiwyg v-model="html" :hide="hide"></mc-wysiwyg>
+  </div>
+</template>
+
+<script>
+import { McWysiwyg } from '@mycure/wysiwyg';
+export default {
+  components: {
+    McWysiwyg
+  },
+  data () {
+    return {
+      html: '',
+      hide: {
+        strikethrough: true,
+        table: true
+      }
+    }
+  }
+}
+```
+
+**`hide` Properties**
+
+| property | type | default |
+| -------- | ---- | ------- |
+| bold | Boolean | false |
+| italic | Boolean | false |
+| underline | Boolean | false |
+| strikethrough | Boolean | false |
+| heading | Boolean | false |
+| alignLeft | Boolean | false |
+| alignCenter | Boolean | false |
+| alignRight | Boolean | false |
+| ol | Boolean | false |
+| ul | Boolean | false |
+| url | Boolean | false |
+| table | Boolean | false |
+| indent | Boolean | false |
+| outdent | Boolean | false |
+
+### Incoming Features
+
+For feature request please create a [new issue](https://github.com/mycurelabs/vue-wysiwyg/issues/new)
+
+- [ ] Add image
+- [x] Configuration to show/hide features
+- [ ] Custom font
+- [ ] Paragraph
+- [ ] Quote
+- [ ] Code
+- [ ] Custom HTML
