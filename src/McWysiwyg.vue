@@ -153,6 +153,18 @@ export default {
       return sizes;
     }
   },
+  watch: {
+    value: {
+      handler (val) {
+        if (val) {
+          setTimeout(() => {
+            document.getElementById('editor').innerHTML = val;
+          }, 100);
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
     bold () {
       this.isBold = !this.isBold;
@@ -239,13 +251,6 @@ export default {
     },
     getValue () {
       this.$emit('input', document.getElementById('editor').innerHTML);
-    }
-  },
-  created () {
-    if (this.value) {
-      setTimeout(() => {
-        document.getElementById('editor').innerHTML = this.value;
-      }, 100);
     }
   },
   mounted () {
