@@ -6,61 +6,61 @@
           <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
             <format-bold></format-bold>
           </button>
-          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.stop="italize">
+          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italize">
             <format-italic></format-italic>
           </button>
-          <button v-if="!hide.underline" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click="underline">
+          <button v-if="!hide.underline" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click.prevent="underline">
             <format-underline></format-underline>
           </button>
-          <button v-if="!hide.strikethrough" class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click="strikeThrough">
+          <button v-if="!hide.strikethrough" class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click.prevent="strikeThrough">
             <format-strikethrough></format-strikethrough>
           </button>
-          <button v-if="!hide.heading" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click="showHeadings">
+          <button v-if="!hide.heading" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click.prevent="showHeadings">
             <format-header-1></format-header-1>
           </button>
         </div>
         <div class="toolbar-section">
-          <button v-if="!hide.alignLeft" class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''" @click="alignLeft">
+          <button v-if="!hide.alignLeft" class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''" @click.prevent="alignLeft">
             <format-align-left></format-align-left>
           </button>
-          <button v-if="!hide.alignCenter" class="wysiwyg-button" :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" @click="alignCenter">
+          <button v-if="!hide.alignCenter" class="wysiwyg-button" :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" @click.prevent="alignCenter">
             <format-align-center></format-align-center>
           </button>
-          <button v-if="!hide.alignRight" class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''" @click="alignRight">
+          <button v-if="!hide.alignRight" class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''" @click.prevent="alignRight">
             <format-align-right></format-align-right>
           </button>
-          <button v-if="!hide.ol" class="wysiwyg-button" @click="orderedList">
+          <button v-if="!hide.ol" class="wysiwyg-button" @click.prevent="orderedList">
             <format-list-numbered></format-list-numbered>
           </button>
-          <button v-if="!hide.ul" class="wysiwyg-button" @click="insertUnorderedList">
+          <button v-if="!hide.ul" class="wysiwyg-button" @click.prevent="insertUnorderedList">
             <format-list-bulleted></format-list-bulleted>
           </button>
         </div>
         <div class="toolbar-section">
-          <button v-if="!hide.url" class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" @click="showLinkOptions">
+          <button v-if="!hide.url" class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" @click.prevent="showLinkOptions">
             <b style="font-size: 10px;">URL</b>
           </button>
-          <button v-if="!hide.table" class="wysiwyg-button" :class="showTableForm ? 'wysiwyg-button-active' : ''" @click="showTableOptions">
+          <button v-if="!hide.table" class="wysiwyg-button" :class="showTableForm ? 'wysiwyg-button-active' : ''" @click.prevent="showTableOptions">
             <table-large></table-large>
           </button>
-          <button v-if="!hide.indent" class="wysiwyg-button" @click="indent">
+          <button v-if="!hide.indent" class="wysiwyg-button" @click.prevent="indent">
             <format-indent-increase></format-indent-increase>
           </button>
-          <button v-if="!hide.outdent" class="wysiwyg-button" @click="outdent">
+          <button v-if="!hide.outdent" class="wysiwyg-button" @click.prevent="outdent">
             <format-indent-decrease></format-indent-decrease>
           </button>
         </div>
       </div>
       <!-- OPTIONS -->
       <div v-if="showHeadingOptions" id="toolbar-options">
-        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size" @click="heading(size)">{{size}}</button>
+        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size" @click.prevent="heading(size)">{{size}}</button>
       </div>
       <div v-if="showLinkForm" id="toolbar-options">
         <form @submit.prevent="createLink">
           <input v-model="linkText" type="text" placeholder="Link Text" required/>
           <input v-model="linkURL" type="text" placeholder="URL" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click="linkText = ''; linkURL = ''" class="wysiwyg-button">Clear</button>
+          <button @click.prevent="linkText = ''; linkURL = ''" class="wysiwyg-button">Clear</button>
         </form>
       </div>
       <div v-if="showTableForm" id="toolbar-options">
@@ -68,7 +68,7 @@
           <input v-model="rows" type="number" placeholder="Rows" required/>
           <input v-model="cols" type="number" placeholder="Columns" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click="rows = null; cols = null" class="wysiwyg-button">Clear</button>
+          <button @click.prevent="rows = null; cols = null" class="wysiwyg-button">Clear</button>
         </form>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
@@ -277,6 +277,7 @@ input:focus {
 #body {
   overflow: auto;
   display: inline-block;
+  width: 100%
 }
 
 #editor {
