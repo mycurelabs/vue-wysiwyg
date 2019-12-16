@@ -71,8 +71,8 @@
           <button @click="rows = null; cols = null" class="wysiwyg-button">Clear</button>
         </form>
       </div>
-      <div id="body">
-        <div id="editor" contenteditable></div>
+      <div id="body" :style="{'height': `${height}px`}">
+        <div id="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
       </div>
     </div>
   </div>
@@ -117,6 +117,10 @@ export default {
     hide: {
       type: Object,
       default: () => ({})
+    },
+    height: {
+      type: [Number, String],
+      default: 400
     }
   },
   data () {
@@ -271,8 +275,12 @@ input:focus {
 }
 
 #body {
-  height: 400px;
   overflow: auto;
+  display: inline-block;
+}
+
+#editor {
+  padding: 10px;
 }
 
 #toolbar {
@@ -284,11 +292,6 @@ input:focus {
 #toolbar-options {
   min-height: 29px;
   border-bottom: 1px solid lightgrey;
-}
-
-#editor {
-  min-height: 400px;
-  padding: 10px;
 }
 
 #editor:focus {
