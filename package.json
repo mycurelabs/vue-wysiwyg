@@ -33,6 +33,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "package-lock-only": "0.0.4",
     "vue-material-design-icons": "^4.4.0"
   }
 }
