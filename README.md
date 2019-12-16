@@ -71,7 +71,7 @@ export default {
 **`height`** - `Number` - Sets the `min-height` of the editor container.
 
 ```html
-<mc-wysiwyg v-model="html" :hide="hide"></mc-wysiwyg>
+<mc-wysiwyg v-model="html" :height="500"></mc-wysiwyg>
 ```
 
 **`hide`** - `Object` - Pass the object property `hide` to hide certain features in the editor. 
