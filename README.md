@@ -1,6 +1,6 @@
 # Vue Wysiwyg
 
-![npm bundle size](https://img.shields.io/bundlephobia/min/@mycure/vue-wysiwyg?style=flat-square) ![npm](https://img.shields.io/npm/dw/@mycure/vue-wysiwyg?style=flat-square)
+![npm bundle size](https://img.shields.io/bundlephobia/min/@mycure/vue-wysiwyg?style=flat-square) ![npm](https://img.shields.io/npm/v/@mycure/vue-wysiwyg?style=flat-square) ![npm](https://img.shields.io/npm/dw/@mycure/vue-wysiwyg?style=flat-square)
 
 A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 
@@ -68,7 +68,13 @@ export default {
 
 ### Props
 
-`hide` - Pass the object property `hide` to hide certain features in the editor. 
+**`height`** - `Number` - Sets the `min-height` of the editor container.
+
+```html
+<mc-wysiwyg v-model="html" :hide="hide"></mc-wysiwyg>
+```
+
+**`hide`** - `Object` - Pass the object property `hide` to hide certain features in the editor. 
 
 **Sample**
 
@@ -123,6 +129,7 @@ export default {
 For feature request please create a [new issue](https://github.com/mycurelabs/vue-wysiwyg/issues/new).
 
 - [ ] Add image
+- [x] Height props
 - [x] Configuration to show/hide features
 - [ ] Custom font
 - [ ] Paragraph
