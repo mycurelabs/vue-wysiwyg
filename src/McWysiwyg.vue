@@ -312,9 +312,9 @@ input:focus {
   background-color: lightblue;
 }
 
-.wysiwyg-button-active {
+/* .wysiwyg-button-active {
   background-color: lightblue;
-}
+} */
 
 .wysiwyg-button-loop {
   margin-right: 4px;
