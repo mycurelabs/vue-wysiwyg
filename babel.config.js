@@ -5,13 +5,15 @@ module.exports = function (api) {
     '@babel/preset-env',
     'minify'
   ];
+
   const plugins = [
     '@babel/transform-runtime',
     '@babel/plugin-proposal-export-default-from'
   ];
+  
   const ignore = [
     '**/*.test.js'
-  ]
+  ];
 
   return {
     presets,
