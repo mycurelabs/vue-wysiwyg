@@ -1,6 +1,6 @@
 {
   "name": "@mycure/vue-wysiwyg",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A simple wysiwyg editor for Vue.js by MYCURE Inc.",
   "main": "dist/index.js",
   "scripts": {
