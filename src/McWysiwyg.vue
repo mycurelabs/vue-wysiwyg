@@ -3,10 +3,10 @@
     <div id="container">
       <div id="toolbar">
         <div class="toolbar-section">
-          <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click="bold">
+          <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
             <format-bold></format-bold>
           </button>
-          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click="italize">
+          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.stop="italize">
             <format-italic></format-italic>
           </button>
           <button v-if="!hide.underline" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click="underline">
