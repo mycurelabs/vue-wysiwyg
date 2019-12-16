@@ -3,7 +3,6 @@ import vue from 'rollup-plugin-vue';
 import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 
 export default {
   input: 'src/index.js',
@@ -31,7 +30,6 @@ export default {
     }),
     postcss({
       plugins: []
-    }),
-    commonjs()
+    })
   ]
 };
