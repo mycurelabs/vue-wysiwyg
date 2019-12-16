@@ -12,7 +12,7 @@ export default {
       exports: 'named',
       name: 'mc-wysiwyg',
       file: 'dist/index.js',
-      format: 'cjs'
+      format: 'esm'
     },
     {
       exports: 'named',
