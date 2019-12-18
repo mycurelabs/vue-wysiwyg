@@ -158,7 +158,9 @@ export default {
       handler (val) {
         if (val) {
           setTimeout(() => {
-            document.getElementById('editor').innerHTML = val;
+            if (!document.getElementById('editor').innerHTML) {
+              document.getElementById('editor').innerHTML = val;
+            }
           }, 100);
         }
       },
