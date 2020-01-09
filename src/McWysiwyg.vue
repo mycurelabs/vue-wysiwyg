@@ -221,7 +221,7 @@ export default {
     showTableOptions () {
       this.showTableForm = !this.showTableForm;
     },
-    generageTable (rows, cols) {
+    generateTable (rows, cols) {
       let text = '';
       for (let row = 1; row <= rows; row++) {
         text += `<tr>`;
@@ -236,7 +236,7 @@ export default {
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
           <tbody>
-            ${this.generageTable(this.rows, this.cols)}
+            ${this.generateTable(this.rows, this.cols)}
           </tbody>
         </table>
       `;
