@@ -374,7 +374,7 @@ input:focus {
     width: 230px;
     margin-right: 30px;
     float: left;
-    padding: 15px 15px 0px 0px;
+    padding: 15px 0px 0px 15px;
 }
 .hoverCell {
   border: 1px solid #aaa;
