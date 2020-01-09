@@ -64,191 +64,18 @@
         </form>
       </div>
       <div v-if="showTableForm" id="toolbar-options">
-        <form @submit.prevent="createTable">
-          <input v-model="rows" type="number" placeholder="Rows" required/>
-          <input v-model="cols" type="number" placeholder="Columns" required/>
-          <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click.prevent="rows = null; cols = null" class="wysiwyg-button">Clear</button>
-          <div class="hoverTableCont" @mouseleave="changeSelectedCell(0, 0)">
-            <div class="hoverTable">
-              <div class="hoverRow" v-for="(row, key) in 12" :key="key">
-                <div :class="['hoverCell', { 'highlightCell': isHighlighted(row, col)}]" v-for="(col, key) in 12" :key="key" @mouseover="changeSelectedCell(row, col)"></div>
-              </div>
-              <!-- <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="1"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="1"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="2"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="2"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="3"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="3"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="4"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="4"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="5"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="5"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="6"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="6"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="7"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="7"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="8"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="8"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="9"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="9"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="10"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="10"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="11"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="11"></div>
-              </div>
-              <div class="hoverRow">
-                <div class="hoverCell" data-iksz="1" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="2" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="3" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="4" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="5" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="6" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="7" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="8" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="9" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="10" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="11" data-ipsz="12"></div>
-                <div class="hoverCell" data-iksz="12" data-ipsz="12"></div>
-              </div> -->
-            </div>
-            <br>
-            <div id="tableDimmensions">
-              <em>Select boxes above</em>
+        <div class="hoverTableCont">
+          <div class="hoverTable" @mouseleave="changeSelectedCell(0, 0)">
+            <div class="hoverRow" v-for="(row, key) in 12" :key="key">
+              <div :class="['hoverCell', { 'highlightCell': isHighlighted(row, col)}]" v-for="(col, key) in 12" :key="key" @mouseover="changeSelectedCell(row, col)" @click="setupCreateTable"></div>
             </div>
           </div>
-        </form>
+          <br>
+          <div id="tableDimmensions">
+            <em v-if="noSelectedCell">Select boxes above</em>
+            <em v-else>{{ this.selectedCell.cols }} x {{ this.selectedCell.rows }}</em>
+          </div>
+        </div>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
         <div id="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
@@ -321,9 +148,11 @@ export default {
       rows: null,
       cols: null,
       selectedCell: {
-        row: 0,
-        col: 0
-      }
+        rows: 0,
+        cols: 0
+      },
+      caratSelection: null,
+      savedPosition: null
     };
   },
   computed: {
@@ -334,7 +163,10 @@ export default {
       }
       sizes.push('Clear');
       return sizes;
-    }
+    },
+    noSelectedCell () {
+      return this.selectedCell.rows === 0 && this.selectedCell.cols === 0;
+    },
   },
   watch: {
     value: {
@@ -402,6 +234,10 @@ export default {
       this.exec('insertUnorderedList');
     },
     showTableOptions () {
+      if (!this.showTableForm) {
+        this.caratSelection = document.getSelection();
+        this.savedPosition = [ this.caratSelection.focusNode, this.caratSelection.focusOffset ];
+      }
       this.showTableForm = !this.showTableForm;
     },
     generateTable (rows, cols) {
@@ -415,7 +251,14 @@ export default {
       }
       return text;
     },
+    setupCreateTable () {
+      this.rows = this.selectedCell.rows;
+      this.cols = this.selectedCell.cols;
+      this.createTable();
+    },
     createTable () {
+      document.getElementById('editor').focus();
+      this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
           <tbody>
@@ -423,7 +266,11 @@ export default {
           </tbody>
         </table>
       `;
+
       this.exec('insertHTML', false, table);
+      this.showTableForm = false;
+      this.caratSelection = null;
+      this.savedPosition = null;
     },
     indent () {
       this.exec('indent');
@@ -432,12 +279,12 @@ export default {
       this.exec('outdent');
     },
     changeSelectedCell (row, col) {
-      this.selectedCell.row = row;
-      this.selectedCell.col = col;
+      this.selectedCell.rows = row;
+      this.selectedCell.cols = col;
     },
     isHighlighted (row, col) {
-      if (this.selectedCell.row === 0 && this.selectedCell.col === 0 ) return false;
-      if (row <= this.selectedCell.row && col <= this.selectedCell.col ) return true;
+      if (this.noSelectedCell ) return false;
+      if (row <= this.selectedCell.rows && col <= this.selectedCell.cols ) return true;
       return false;
     },
     exec (...args) {
@@ -492,6 +339,7 @@ input:focus {
 #toolbar-options {
   min-height: 29px;
   border-bottom: 1px solid lightgrey;
+  overflow: hidden;
 }
 
 #editor:focus {
@@ -526,6 +374,7 @@ input:focus {
     width: 230px;
     margin-right: 30px;
     float: left;
+    padding: 15px 15px 0px 0px;
 }
 .hoverCell {
   border: 1px solid #aaa;
@@ -543,6 +392,6 @@ input:focus {
     clear: both;
 }
 .highlightCell {
-  background-color: red;
+  background-color: #d1e0ff;
 }
 </style>
