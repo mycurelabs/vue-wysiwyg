@@ -67,7 +67,13 @@
         <div class="hoverTableCont">
           <div class="hoverTable" @mouseleave="changeSelectedCell(0, 0)">
             <div class="hoverRow" v-for="(row, key) in 12" :key="key">
-              <div :class="['hoverCell', { 'highlightCell': isHighlighted(row, col)}]" v-for="(col, key) in 12" :key="key" @mouseover="changeSelectedCell(row, col)" @click="setupCreateTable"></div>
+              <div
+                v-for="(col, key) in 12" 
+                :class="['hoverCell', { 'highlightCell': isHighlighted(row, col)}]" 
+                @mouseover="changeSelectedCell(row, col)" 
+                @click="setupCreateTable"
+                :key="key"
+              ></div>
             </div>
           </div>
           <br>
