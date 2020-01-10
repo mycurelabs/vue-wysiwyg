@@ -38,7 +38,7 @@ $ yarn add @mycure/vue-wysiwyg
 **As a global plugin**
 ```javascript
 import Vue from 'vue';
-import VueWysiwyg from '@mycure/wysiwyg';
+import VueWysiwyg from '@mycure/vue-wysiwyg';
 
 Vue.use(VueWysiwyg);
 ```
@@ -52,7 +52,7 @@ Vue.use(VueWysiwyg);
 </template>
 
 <script>
-import { McWysiwyg } from '@mycure/wysiwyg';
+import { McWysiwyg } from '@mycure/vue-wysiwyg';
 export default {
   components: {
     McWysiwyg
@@ -88,7 +88,7 @@ In example below, `strikethrough` and `table` will be hidden.
 </template>
 
 <script>
-import { McWysiwyg } from '@mycure/wysiwyg';
+import { McWysiwyg } from '@mycure/vue-wysiwyg';
 export default {
   components: {
     McWysiwyg
