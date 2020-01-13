@@ -64,6 +64,12 @@
         </form>
       </div>
       <div v-if="showTableForm" id="toolbar-options">
+        <form @submit.prevent="createTable">
+          <input v-model="rows" type="number" placeholder="Rows" required/>
+          <input v-model="cols" type="number" placeholder="Columns" required/>
+          <button type="submit" class="wysiwyg-button">Insert</button>
+          <button @click.prevent="rows = null; cols = null" class="wysiwyg-button">Clear</button>
+        </form>
         <div class="hoverTableCont">
           <div class="hoverTable" @mouseleave="changeSelectedCell(0, 0)">
             <div class="hoverRow" v-for="(row, key) in 12" :key="key">
