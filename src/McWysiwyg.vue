@@ -65,8 +65,8 @@
       </div>
       <div v-if="showTableForm" id="toolbar-options">
         <form @submit.prevent="createTable">
-          <input v-model="rows" type="number" placeholder="Rows" required/>
-          <input v-model="cols" type="number" placeholder="Columns" required/>
+          <input v-model="rows" min="0" type="number" placeholder="Rows" required/>
+          <input v-model="cols" min="0" type="number" placeholder="Columns" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
           <button @click.prevent="rows = null; cols = null" class="wysiwyg-button">Clear</button>
         </form>
