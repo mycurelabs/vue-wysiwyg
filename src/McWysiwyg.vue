@@ -65,11 +65,29 @@
       </div>
       <div v-if="showTableForm" id="toolbar-options">
         <form @submit.prevent="createTable">
-          <input v-model="rows" type="number" placeholder="Rows" required/>
-          <input v-model="cols" type="number" placeholder="Columns" required/>
+          <input v-model="rows" min="0" type="number" placeholder="Rows" required/>
+          <input v-model="cols" min="0" type="number" placeholder="Columns" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
           <button @click.prevent="rows = null; cols = null" class="wysiwyg-button">Clear</button>
         </form>
+        <div class="hoverTableCont">
+          <div class="hoverTable" @mouseleave="changeSelectedCell(0, 0)">
+            <div class="hoverRow" v-for="(row, key) in 12" :key="key">
+              <div
+                v-for="(col, key) in 12" 
+                :class="['hoverCell', { 'highlightCell': isHighlighted(row, col)}]" 
+                @mouseover="changeSelectedCell(row, col)" 
+                @click="setupCreateTable"
+                :key="key"
+              ></div>
+            </div>
+          </div>
+          <br>
+          <div id="tableDimmensions">
+            <em v-if="noSelectedCell">Select boxes above</em>
+            <em v-else>{{ this.selectedCell.cols }} x {{ this.selectedCell.rows }}</em>
+          </div>
+        </div>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
         <div id="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
@@ -140,7 +158,13 @@ export default {
       linkURL: '',
       showTableForm: false,
       rows: null,
-      cols: null
+      cols: null,
+      selectedCell: {
+        rows: 0,
+        cols: 0
+      },
+      caratSelection: null,
+      savedPosition: null
     };
   },
   computed: {
@@ -151,7 +175,10 @@ export default {
       }
       sizes.push('Clear');
       return sizes;
-    }
+    },
+    noSelectedCell () {
+      return this.selectedCell.rows === 0 && this.selectedCell.cols === 0;
+    },
   },
   watch: {
     value: {
@@ -219,9 +246,13 @@ export default {
       this.exec('insertUnorderedList');
     },
     showTableOptions () {
+      if (!this.showTableForm) {
+        this.caratSelection = document.getSelection();
+        this.savedPosition = [ this.caratSelection.focusNode, this.caratSelection.focusOffset ];
+      }
       this.showTableForm = !this.showTableForm;
     },
-    generageTable (rows, cols) {
+    generateTable (rows, cols) {
       let text = '';
       for (let row = 1; row <= rows; row++) {
         text += `<tr>`;
@@ -232,21 +263,41 @@ export default {
       }
       return text;
     },
+    setupCreateTable () {
+      this.rows = this.selectedCell.rows;
+      this.cols = this.selectedCell.cols;
+      this.createTable();
+    },
     createTable () {
+      document.getElementById('editor').focus();
+      this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
           <tbody>
-            ${this.generageTable(this.rows, this.cols)}
+            ${this.generateTable(this.rows, this.cols)}
           </tbody>
         </table>
       `;
+
       this.exec('insertHTML', false, table);
+      this.showTableForm = false;
+      this.caratSelection = null;
+      this.savedPosition = null;
     },
     indent () {
       this.exec('indent');
     },
     outdent () {
       this.exec('outdent');
+    },
+    changeSelectedCell (row, col) {
+      this.selectedCell.rows = row;
+      this.selectedCell.cols = col;
+    },
+    isHighlighted (row, col) {
+      if (this.noSelectedCell ) return false;
+      if (row <= this.selectedCell.rows && col <= this.selectedCell.cols ) return true;
+      return false;
     },
     exec (...args) {
       document.execCommand(...args);
@@ -300,6 +351,7 @@ input:focus {
 #toolbar-options {
   min-height: 29px;
   border-bottom: 1px solid lightgrey;
+  overflow: hidden;
 }
 
 #editor:focus {
@@ -329,5 +381,29 @@ input:focus {
 
 .wysiwyg-button-loop {
   margin-right: 4px;
+}
+.hoverTableCont {
+    width: 230px;
+    margin-right: 30px;
+    float: left;
+    padding: 15px 0px 0px 15px;
+}
+.hoverCell {
+  border: 1px solid #aaa;
+	height: 16px;
+	width: 16px;
+	margin: 0 1px 1px 0;
+	float: left;
+	cursor: pointer;
+}
+.hoverCell:hover {
+	background-color: #4b67a1 !important;
+}
+.hoverRow {
+    display: block;
+    clear: both;
+}
+.highlightCell {
+  background-color: #d1e0ff;
 }
 </style>
