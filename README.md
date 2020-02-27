@@ -11,7 +11,7 @@ A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 **NPM**
 
 ```bash
-$ npm install @signmeuptwice/vue-wysiwyg
+$ npm install @wakeio/vue-wysiwyg
 ```
 
 ### Usage
@@ -19,7 +19,7 @@ $ npm install @signmeuptwice/vue-wysiwyg
 **As a global plugin**
 ```javascript
 import Vue from 'vue';
-import VueWysiwyg from '@mycure/vue-wysiwyg';
+import wysiwyg from '@wakeio/vue-wysiwyg';
 
 Vue.use(VueWysiwyg);
 ```
@@ -28,15 +28,15 @@ Vue.use(VueWysiwyg);
 ```html
 <template>
   <div>
-    <mc-wysiwyg v-model="html"></mc-wysiwyg>
+    <wysiwyg v-model="html"></wysiwyg>
   </div>
 </template>
 
 <script>
-import { wysiwyg } from '@signmeuptwice/vue-wysiwyg';
+import wysiwyg from '@wakeio/vue-wysiwyg';
 export default {
   components: {
-    McWysiwyg
+    wysiwyg
   },
   data () {
     return {
@@ -52,7 +52,7 @@ export default {
 **`height`** - `Number` - Sets the `min-height` of the editor container.
 
 ```html
-<mc-wysiwyg v-model="html" :height="500"></mc-wysiwyg>
+<wysiwyg v-model="html" :height="500"></wysiwyg>
 ```
 
 **`hide`** - `Object` - Pass the object property `hide` to hide certain features in the editor. 
@@ -64,15 +64,15 @@ In example below, `strikethrough` and `table` will be hidden.
 ```html
 <template>
   <div>
-    <mc-wysiwyg v-model="html" :hide="hide"></mc-wysiwyg>
+    <wysiwyg v-model="html" :hide="hide"></wysiwyg>
   </div>
 </template>
 
 <script>
-import { McWysiwyg } from '@mycure/vue-wysiwyg';
+import wysiwyg from '@wakeio/vue-wysiwyg';
 export default {
   components: {
-    McWysiwyg
+    wysiwyg
   },
   data () {
     return {
