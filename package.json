@@ -8,7 +8,7 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c"
   },
-  "author": "signmeuptwice",
+  "author": "wakeio",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.7.5",
