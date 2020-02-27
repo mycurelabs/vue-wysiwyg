@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="wysiwyg-container">
+    <div v-if="uid" class="wysiwyg-container">
       <div class="wysiwyg-toolbar">
         <div class="toolbar-section">
-          <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
+          <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="bold">
             <format-bold></format-bold>
           </button>
           <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italize">
@@ -16,7 +16,7 @@
             <format-strikethrough></format-strikethrough>
           </button>
           <button v-if="!hide.heading" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click.prevent="showHeadings">
-            <format-header-1></format-header-1>
+            <format-header></format-header>
           </button>
         </div>
         <div class="toolbar-section">
@@ -53,14 +53,14 @@
       </div>
       <!-- OPTIONS -->
       <div v-if="showHeadingOptions" class="toolbar-options">
-        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size" @click.prevent="heading(size)">{{size}}</button>
+        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size+uid" @click.prevent="heading(size)">{{size}}</button>
       </div>
       <div v-if="showLinkForm" class="toolbar-options">
         <form @submit.prevent="createLink">
           <input class="wysiwyg-input" v-model="linkText" type="text" placeholder="Link Text" required/>
           <input class="wysiwyg-input" v-model="linkURL" type="text" placeholder="URL" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click.prevent="linkText = ''; linkURL = ''" class="wysiwyg-button">Clear</button>
+          <button @click.prevent="resetLink()" class="wysiwyg-button">Clear</button>
         </form>
       </div>
       <div v-if="showTableForm" class="toolbar-options">
@@ -68,17 +68,17 @@
           <input class="wysiwyg-input" v-model="rows" min="0" type="number" placeholder="Rows" required/>
           <input class="wysiwyg-input" v-model="cols" min="0" type="number" placeholder="Columns" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click.prevent="rows = null; cols = null" class="wysiwyg-button">Clear</button>
+          <button @click.prevent="resetTable()" class="wysiwyg-button">Clear</button>
         </form>
         <div class="hoverTableCont">
           <div class="hoverTable" @mouseleave="changeSelectedCell(0, 0)">
-            <div class="hoverRow" v-for="(row, key) in 12" :key="key">
+            <div class="hoverRow" v-for="(row, key) in 12" :key="key+uid">
               <div
                       v-for="(col, key) in 12"
                       :class="['hoverCell', { 'highlightCell': isHighlighted(row, col)}]"
                       @mouseover="changeSelectedCell(row, col)"
                       @click="setupCreateTable"
-                      :key="key"
+                      :key="key+uid"
               ></div>
             </div>
           </div>
@@ -89,8 +89,14 @@
           </div>
         </div>
       </div>
-      <div class="wysiwyg-body" :style="{'height': `${height}px`}">
-        <div v-if="generatedID" :id="generatedID" class="wysiwyg-editor" contenteditable :style="{'min-height': `${height}px`}"></div>
+      <div class="wysiwyg-body">
+        <div
+                :ref="uid"
+                v-on:input="updateContent"
+                class="wysiwyg-editor"
+                contenteditable
+                :style="{'min-height': `${height - 50}px`}">
+        </div>
       </div>
     </div>
   </div>
@@ -103,7 +109,7 @@
   import FormatAlignLeft from 'vue-material-design-icons/FormatAlignLeft.vue';
   import FormatAlignRight from 'vue-material-design-icons/FormatAlignRight.vue';
   import FormatBold from 'vue-material-design-icons/FormatBold.vue';
-  import FormatHeader1 from 'vue-material-design-icons/FormatHeader1.vue';
+  import FormatHeader from 'vue-material-design-icons/FormatHeader1.vue';
   import FormatIndentDecrease from 'vue-material-design-icons/FormatIndentDecrease.vue';
   import FormatIndentIncrease from 'vue-material-design-icons/FormatIndentIncrease.vue';
   import FormatItalic from 'vue-material-design-icons/FormatItalic.vue';
@@ -119,7 +125,7 @@
       FormatAlignLeft,
       FormatAlignRight,
       FormatBold,
-      FormatHeader1,
+      FormatHeader,
       FormatIndentDecrease,
       FormatIndentIncrease,
       FormatItalic,
@@ -143,23 +149,17 @@
       }
     },
     mounted () {
-      this.generatedID = this.makeid(10)
-      let that = this;
-      this.$nextTick(() => {
-        document.getElementById(this.generatedID).addEventListener('input', function() {
-          that.getValue();
-        }, false);
-      });
+      this.uid = this.generateRandom(10)
     },
     data () {
       return {
-        generatedID:null,
+        uid:null,
         isBold: false,
         isItalic: false,
         isUnderlined: false,
         isStrikedThrough: false,
         isHeading: false,
-        isAlignedLeft: false,
+        isAlignedLeft: true,
         isAlignedCenter: false,
         isAlignedRight: false,
         showToolbarOptions: false,
@@ -175,7 +175,8 @@
           cols: 0
         },
         caratSelection: null,
-        savedPosition: null
+        savedPosition: null,
+        content:null
       };
     },
     computed: {
@@ -191,22 +192,16 @@
         return this.selectedCell.rows === 0 && this.selectedCell.cols === 0;
       },
     },
-    watch: {
-      value: {
-        handler (val) {
-          if (val) {
-            setTimeout(() => {
-              if (!document.getElementById(this.generatedID).innerHTML) {
-                document.getElementById(this.generatedID).innerHTML = val;
-              }
-            }, 100);
-          }
-        },
-        immediate: true
-      }
-    },
     methods: {
-      makeid(length) {
+      resetLink(){
+        this.linkText = ''
+        this.linkURL = ''
+      },
+      resetTable(){
+        this.rows = null;
+        this.cols = null
+      },
+      generateRandom(length) {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const charactersLength = characters.length;
@@ -289,15 +284,15 @@
         this.createTable();
       },
       createTable () {
-        document.getElementById(this.generatedID).focus();
+        this.$refs[this.uid].focus();
         this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
         let table = `
-        <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
-          <tbody>
-            ${this.generateTable(this.rows, this.cols)}
-          </tbody>
-        </table>
-      `;
+                            <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
+                              <tbody>
+                                ${this.generateTable(this.rows, this.cols)}
+                              </tbody>
+                            </table>
+                          `;
         this.exec('insertHTML', false, table);
         this.showTableForm = false;
         this.caratSelection = null;
@@ -321,10 +316,18 @@
       exec (...args) {
         document.execCommand(...args);
       },
-      getValue () {
-        this.$emit('input', document.getElementById(this.generatedID).innerHTML);
+      updateContent(){
+        this.$emit('input', this.$refs[this.uid].innerHTML);
       }
-    }
+    },
+    watch: {
+      value() {
+        if (this.$props.value){
+          this.content = this.$props.value
+          this.$refs[this.uid].innerHTML = this.$props.value
+        }
+      }
+    },
   }
 </script>
 

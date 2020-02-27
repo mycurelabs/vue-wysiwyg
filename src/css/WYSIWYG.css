@@ -1,13 +1,11 @@
 .wysiwyg-input {
   margin: 4px;
   padding: 2px;
-  border: 1px solid lightgrey;
 }
 .wysiwyg-input:focus {
   outline: none;
 }
 .wysiwyg-container {
-  border: 1px solid lightgrey;
 }
 .wysiwyg-body {
   overflow: auto;
@@ -16,33 +14,39 @@
 }
 .wysiwyg-editor {
   padding: 10px;
+  background-color: white;
+  text-align: left;
 }
 .wysiwyg-toolbar {
-  min-height: 29px;
+  height: 30px;
   border-bottom: 1px solid lightgrey;
   background-color: rgb(247, 247, 247);
+  /*text-align: left;*/
 }
 .toolbar-options {
-  min-height: 29px;
-  border-bottom: 1px solid lightgrey;
+  height: 30px;
   overflow: hidden;
 }
 .wysiwyg-editor:focus {
   outline: none;
 }
 .toolbar-section {
-  float: left;
-  border-right: 1px solid lightgrey;
+  display: inline-block;
+  margin: 0 10px;
 }
 .wysiwyg-button {
-  height: 28px;
-  min-width: 30px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  height: 30px;
+  width: 30px;
   background-color: transparent;
   text-align: center;
   padding: 2px;
+  border: none;
 }
 .wysiwyg-button:hover {
   background-color: lightblue;
+  cursor: pointer;
 }
 .wysiwyg-button-loop {
   margin-right: 4px;
