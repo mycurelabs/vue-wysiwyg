@@ -11,26 +11,7 @@ A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 **NPM**
 
 ```bash
-$ npm install @mycure/vue-wysiwyg
-```
-
-**Yarn**
-
-```bash
-$ yarn add @mycure/vue-wysiwyg
-```
-
-**CDN**
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://unpkg.com/@mycure/vue-wysiwyg/dist/mc-wysiwyg.js"></script>
-<script>
-  Vue.use(McWysiwyg.default);
-  new Vue({
-    el: '#app',
-  });
-</script>
+$ npm install @signmeuptwice/vue-wysiwyg
 ```
 
 ### Usage
@@ -52,7 +33,7 @@ Vue.use(VueWysiwyg);
 </template>
 
 <script>
-import { McWysiwyg } from '@mycure/vue-wysiwyg';
+import { wysiwyg } from '@signmeuptwice/vue-wysiwyg';
 export default {
   components: {
     McWysiwyg
@@ -123,16 +104,3 @@ export default {
 | table | Boolean | false |
 | indent | Boolean | false |
 | outdent | Boolean | false |
-
-### Incoming Features
-
-For feature request please create a [new issue](https://github.com/mycurelabs/vue-wysiwyg/issues/new).
-
-- [ ] Add image
-- [x] Height props
-- [x] Configuration to show/hide features
-- [ ] Custom font
-- [ ] Paragraph
-- [ ] Quote
-- [ ] Code
-- [ ] Custom HTML
