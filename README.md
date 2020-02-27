@@ -1,7 +1,3 @@
-# Vue Wysiwyg
-
-![npm bundle size](https://img.shields.io/bundlephobia/min/@mycure/vue-wysiwyg?style=flat-square) ![npm](https://img.shields.io/npm/v/@mycure/vue-wysiwyg?style=flat-square) ![npm](https://img.shields.io/npm/dw/@mycure/vue-wysiwyg?style=flat-square)
-
 A fork of the [MYCURE Inc.](https://mycure.md) wysiwyg editor for Vue.js
 
 **[Demo](https://mycurelabs.github.io/vue-wysiwyg/)**
@@ -21,7 +17,7 @@ $ npm install @wakeio/vue-wysiwyg
 import Vue from 'vue';
 import wysiwyg from '@wakeio/vue-wysiwyg';
 
-Vue.use(VueWysiwyg);
+Vue.use(wysiwyg);
 ```
 
 **As a local component**
