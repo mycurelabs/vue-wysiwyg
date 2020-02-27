@@ -6,61 +6,61 @@
           <button v-if="!hide.bold" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="bold">
             <format-bold></format-bold>
           </button>
-          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italize">
+          <button v-if="!hide.italic" class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="italize">
             <format-italic></format-italic>
           </button>
-          <button v-if="!hide.underline" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click.prevent="underline">
+          <button v-if="!hide.underline" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="underline">
             <format-underline></format-underline>
           </button>
-          <button v-if="!hide.strikethrough" class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click.prevent="strikeThrough">
+          <button v-if="!hide.strikethrough" class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="strikeThrough">
             <format-strikethrough></format-strikethrough>
           </button>
-          <button v-if="!hide.heading" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click.prevent="showHeadings">
+          <button v-if="!hide.heading" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="showHeadings">
             <format-header></format-header>
           </button>
         </div>
         <div class="toolbar-section">
-          <button v-if="!hide.alignLeft" class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''" @click.prevent="alignLeft">
+          <button v-if="!hide.alignLeft" class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="alignLeft">
             <format-align-left></format-align-left>
           </button>
-          <button v-if="!hide.alignCenter" class="wysiwyg-button" :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" @click.prevent="alignCenter">
+          <button v-if="!hide.alignCenter" class="wysiwyg-button" :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="alignCenter">
             <format-align-center></format-align-center>
           </button>
-          <button v-if="!hide.alignRight" class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''" @click.prevent="alignRight">
+          <button v-if="!hide.alignRight" class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="alignRight">
             <format-align-right></format-align-right>
           </button>
-          <button v-if="!hide.ol" class="wysiwyg-button" @click.prevent="orderedList">
+          <button v-if="!hide.ol" class="wysiwyg-button" v-on:click.stop.prevent="orderedList">
             <format-list-numbered></format-list-numbered>
           </button>
-          <button v-if="!hide.ul" class="wysiwyg-button" @click.prevent="insertUnorderedList">
+          <button v-if="!hide.ul" class="wysiwyg-button" v-on:click.stop.prevent="insertUnorderedList">
             <format-list-bulleted></format-list-bulleted>
           </button>
         </div>
         <div class="toolbar-section">
-          <button v-if="!hide.url" class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" @click.prevent="showLinkOptions">
+          <button v-if="!hide.url" class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="showLinkOptions">
             <b style="font-size: 10px;">URL</b>
           </button>
-          <button v-if="!hide.table" class="wysiwyg-button" :class="showTableForm ? 'wysiwyg-button-active' : ''" @click.prevent="showTableOptions">
+          <button v-if="!hide.table" class="wysiwyg-button" :class="showTableForm ? 'wysiwyg-button-active' : ''" v-on:click.stop.prevent="showTableOptions">
             <table-large></table-large>
           </button>
-          <button v-if="!hide.indent" class="wysiwyg-button" @click.prevent="indent">
+          <button v-if="!hide.indent" class="wysiwyg-button" v-on:click.stop.prevent="indent">
             <format-indent-increase></format-indent-increase>
           </button>
-          <button v-if="!hide.outdent" class="wysiwyg-button" @click.prevent="outdent">
+          <button v-if="!hide.outdent" class="wysiwyg-button" v-on:click.stop.prevent="outdent">
             <format-indent-decrease></format-indent-decrease>
           </button>
         </div>
       </div>
       <!-- OPTIONS -->
       <div v-if="showHeadingOptions" class="toolbar-options">
-        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size+uid" @click.prevent="heading(size)">{{size}}</button>
+        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size+uid" v-on:click.stop.prevent="heading(size)">{{size}}</button>
       </div>
       <div v-if="showLinkForm" class="toolbar-options">
         <form @submit.prevent="createLink">
           <input class="wysiwyg-input" v-model="linkText" type="text" placeholder="Link Text" required/>
           <input class="wysiwyg-input" v-model="linkURL" type="text" placeholder="URL" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click.prevent="resetLink()" class="wysiwyg-button">Clear</button>
+          <button v-on:click.stop.prevent="resetLink()" class="wysiwyg-button">Clear</button>
         </form>
       </div>
       <div v-if="showTableForm" class="toolbar-options">
@@ -68,7 +68,7 @@
           <input class="wysiwyg-input" v-model="rows" min="0" type="number" placeholder="Rows" required/>
           <input class="wysiwyg-input" v-model="cols" min="0" type="number" placeholder="Columns" required/>
           <button type="submit" class="wysiwyg-button">Insert</button>
-          <button @click.prevent="resetTable()" class="wysiwyg-button">Clear</button>
+          <button v-on:click.stop.prevent="resetTable()" class="wysiwyg-button">Clear</button>
         </form>
         <div class="hoverTableCont">
           <div class="hoverTable" @mouseleave="changeSelectedCell(0, 0)">
