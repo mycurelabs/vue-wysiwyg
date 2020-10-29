@@ -6,7 +6,7 @@ A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 
 **[Demo](https://mycurelabs.github.io/vue-wysiwyg/)**
 
-### Install
+## Install
 
 **NPM**
 
@@ -33,7 +33,7 @@ $ yarn add @mycure/vue-wysiwyg
 </script>
 ```
 
-### Usage
+## Usage
 
 **As a global plugin**
 ```javascript
@@ -66,7 +66,7 @@ export default {
 </script>
 ```
 
-### Props
+## Props
 
 **`height`** - `Number` - Sets the `min-height` of the editor container.
 
@@ -124,7 +124,7 @@ export default {
 | indent | Boolean | false |
 | outdent | Boolean | false |
 
-### Incoming Features
+## Incoming Features
 
 For feature request please create a [new issue](https://github.com/mycurelabs/vue-wysiwyg/issues/new).
 
