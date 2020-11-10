@@ -90,7 +90,7 @@
         </div>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
-        <div id="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
+        <div id="editor" ref="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
       </div>
     </div>
   </div>
@@ -185,8 +185,8 @@ export default {
       handler (val) {
         if (val) {
           setTimeout(() => {
-            if (!document.getElementById('editor').innerHTML) {
-              document.getElementById('editor').innerHTML = val;
+            if (!this.$refs.editor.innerHTML) {
+              this.$refs.editor.innerHTML = val;
             }
           }, 100);
         }
@@ -269,7 +269,7 @@ export default {
       this.createTable();
     },
     createTable () {
-      document.getElementById('editor').focus();
+      this.$refs.editor.focus();
       this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
@@ -303,13 +303,13 @@ export default {
       document.execCommand(...args);
     },
     getValue () {
-      this.$emit('input', document.getElementById('editor').innerHTML);
+      this.$emit('input', this.$refs.editor.innerHTML);
     }
   },
   mounted () {
     let that = this;
     this.$nextTick(() => {
-      document.getElementById('editor').addEventListener('input', function() {
+      this.$refs.editor.addEventListener('input', function() {
         that.getValue();
       }, false);
     });
