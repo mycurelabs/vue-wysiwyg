@@ -103,6 +103,7 @@ export default {
     }
   }
 }
+</script>
 ```
 
 **`hide` Properties**
