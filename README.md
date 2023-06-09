@@ -4,6 +4,6 @@
 
 A simple wysiwyg editor for Vue.js by [MYCURE Inc.](https://mycure.md)
 
-## [GitBook Documentation](https://mycure.gitbook.io/mycure-oss/v/vue-wysiwyg/)
+## [GitBook Documentation](https://oss.mycure.md/v/vue-wysiwyg/)
 
 Made with ❤️ by Joff Tiquez
