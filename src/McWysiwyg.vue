@@ -90,7 +90,7 @@
         </div>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
-        <div id="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
+        <div :id="'editor' + uuid" contenteditable :style="{'min-height': `${height}px`}"></div>
       </div>
     </div>
   </div>
@@ -164,7 +164,8 @@ export default {
         cols: 0
       },
       caratSelection: null,
-      savedPosition: null
+      savedPosition: null,
+      uuid: 0
     };
   },
   computed: {
@@ -185,8 +186,8 @@ export default {
       handler (val) {
         if (val) {
           setTimeout(() => {
-            if (!document.getElementById('editor').innerHTML) {
-              document.getElementById('editor').innerHTML = val;
+            if (!document.getElementById('editor' + this.uuid).innerHTML) {
+              document.getElementById('editor' + this.uuid).innerHTML = val;
             }
           }, 100);
         }
@@ -269,7 +270,7 @@ export default {
       this.createTable();
     },
     createTable () {
-      document.getElementById('editor').focus();
+      document.getElementById('editor' + this.uuid).focus();
       this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
@@ -303,17 +304,22 @@ export default {
       document.execCommand(...args);
     },
     getValue () {
-      this.$emit('input', document.getElementById('editor').innerHTML);
+      this.$emit('input', document.getElementById('editor' + this.uuid).innerHTML);
     }
   },
   mounted () {
     let that = this;
     this.$nextTick(() => {
-      document.getElementById('editor').addEventListener('input', function() {
+      document.getElementById('editor' + this.uuid).addEventListener('input', function() {
         that.getValue();
       }, false);
     });
   },
+  beforeCreate() {
+      this.uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+          (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+  }
 }
 </script>
 
