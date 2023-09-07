@@ -343,9 +343,12 @@ input:focus {
 }
 
 #toolbar {
-  min-height: 29px;
-  border-bottom: 1px solid lightgrey;
-  background-color: rgb(247, 247, 247);
+    border-bottom: 1px solid lightgrey;
+    background-color: #ebeef5;
+    display: flex;
+    justify-content: start;
+    padding: 0 0.6rem;
+    gap: 0.6rem;
 }
 
 #toolbar-options {
@@ -359,20 +362,22 @@ input:focus {
 }
 
 .toolbar-section {
-  float: left;
-  border-right: 1px solid lightgrey;
 }
 
 .wysiwyg-button {
-  height: 28px;
-  min-width: 30px;
-  background-color: transparent;
-  text-align: center;
-  padding: 2px;
+    height: 1.618rem;
+    width: 1.618rem;
+    background-color: transparent;
+    text-align: center;
+    padding: 2px;
+    border: 0;
+    cursor: pointer;
+    transition: .5s;
 }
 
 .wysiwyg-button:hover {
-  background-color: lightblue;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 .82rem #dcdfe6;
 }
 
 /* .wysiwyg-button-active {
