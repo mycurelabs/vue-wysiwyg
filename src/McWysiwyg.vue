@@ -90,7 +90,7 @@
         </div>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
-        <div :id="'editor' + _uid" contenteditable :style="{'min-height': `${height}px`}"></div>
+        <div :ref="'editor' + _uid" contenteditable @paste.stop.prevent="onPaste" :style="{'min-height': `${height}px`}"></div>
       </div>
     </div>
   </div>
@@ -185,8 +185,8 @@ export default {
       handler (val) {
         if (val) {
           setTimeout(() => {
-            if (!document.getElementById('editor' + this._uid).innerHTML) {
-              document.getElementById('editor' + this._uid).innerHTML = val;
+            if (!this.$refs['editor' + this._uid].innerHTML) {
+              this.$refs['editor' + this._uid].innerHTML = val;
             }
           }, 100);
         }
@@ -269,7 +269,7 @@ export default {
       this.createTable();
     },
     createTable () {
-      document.getElementById('editor' + this._uid).focus();
+      this.$refs['editor' + this._uid].focus();
       this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
@@ -303,13 +303,17 @@ export default {
       document.execCommand(...args);
     },
     getValue () {
-      this.$emit('input', document.getElementById('editor' + this._uid).innerHTML);
-    }
+      this.$emit('input', this.$refs['editor' + this._uid].innerHTML);
+    },
+    onPaste(event){
+      const plainText = event.clipboardData.getData('text/plain')
+      this.exec('insertText', false, plainText)
+    },
   },
   mounted () {
     let that = this;
     this.$nextTick(() => {
-      document.getElementById('editor' + this._uid).addEventListener('input', function() {
+      this.$refs['editor' + this._uid].addEventListener('input', function() {
         that.getValue();
       }, false);
     });
