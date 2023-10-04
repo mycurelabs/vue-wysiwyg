@@ -90,7 +90,7 @@
         </div>
       </div>
       <div id="body" :style="{'height': `${height}px`}">
-        <div id="editor" contenteditable :style="{'min-height': `${height}px`}"></div>
+        <div :ref="'editor' + _uid" contenteditable @paste.stop.prevent="onPaste" :style="{'min-height': `${height}px`}"></div>
       </div>
     </div>
   </div>
@@ -164,7 +164,7 @@ export default {
         cols: 0
       },
       caratSelection: null,
-      savedPosition: null
+      savedPosition: null,
     };
   },
   computed: {
@@ -185,8 +185,8 @@ export default {
       handler (val) {
         if (val) {
           setTimeout(() => {
-            if (!document.getElementById('editor').innerHTML) {
-              document.getElementById('editor').innerHTML = val;
+            if (!this.$refs['editor' + this._uid].innerHTML) {
+              this.$refs['editor' + this._uid].innerHTML = val;
             }
           }, 100);
         }
@@ -269,7 +269,7 @@ export default {
       this.createTable();
     },
     createTable () {
-      document.getElementById('editor').focus();
+      this.$refs['editor' + this._uid].focus();
       this.caratSelection.collapse(this.savedPosition[0], this.savedPosition[1]);
       let table = `
         <table width="100%" style="border-collapse: collapse; border: 1px solid lightgrey;">
@@ -303,13 +303,17 @@ export default {
       document.execCommand(...args);
     },
     getValue () {
-      this.$emit('input', document.getElementById('editor').innerHTML);
-    }
+      this.$emit('input', this.$refs['editor' + this._uid].innerHTML);
+    },
+    onPaste(event){
+      const plainText = event.clipboardData.getData('text/plain')
+      this.exec('insertText', false, plainText)
+    },
   },
   mounted () {
     let that = this;
     this.$nextTick(() => {
-      document.getElementById('editor').addEventListener('input', function() {
+      this.$refs['editor' + this._uid].addEventListener('input', function() {
         that.getValue();
       }, false);
     });
@@ -343,9 +347,12 @@ input:focus {
 }
 
 #toolbar {
-  min-height: 29px;
-  border-bottom: 1px solid lightgrey;
-  background-color: rgb(247, 247, 247);
+    border-bottom: 1px solid lightgrey;
+    background-color: #ebeef5;
+    display: flex;
+    justify-content: start;
+    padding: 0 0.6rem;
+    gap: 0.6rem;
 }
 
 #toolbar-options {
@@ -359,20 +366,22 @@ input:focus {
 }
 
 .toolbar-section {
-  float: left;
-  border-right: 1px solid lightgrey;
 }
 
 .wysiwyg-button {
-  height: 28px;
-  min-width: 30px;
-  background-color: transparent;
-  text-align: center;
-  padding: 2px;
+    height: 1.618rem;
+    width: 1.618rem;
+    background-color: transparent;
+    text-align: center;
+    padding: 2px;
+    border: 0;
+    cursor: pointer;
+    transition: .5s;
 }
 
 .wysiwyg-button:hover {
-  background-color: lightblue;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 .82rem #dcdfe6;
 }
 
 /* .wysiwyg-button-active {
